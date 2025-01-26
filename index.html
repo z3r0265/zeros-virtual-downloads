@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZERO's Virtual Downloads</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script>
+        const users = [
+            { username: 'zero', password: 'rojavanda8', email: 'rojavanda8@gmail.com', canUpload: true }
+        ];
+
+        let currentUser = null;
+
+        function signIn(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const email = document.getElementById('email').value;
+
+            const user = users.find(u => u.username === username && u.password === password && u.email === email);
+            if (user) {
+                currentUser = user;
+                document.getElementById('sign-in-form').classList.add('hidden');
+                document.getElementById('main-content').classList.remove('hidden');
+                if (user.canUpload) {
+                    document.getElementById('upload-section').classList.remove('hidden');
+                }
+            } else {
+                alert('Invalid credentials');
+            }
+        }
+
+        function uploadFile(event) {
+            event.preventDefault();
+            if (currentUser && currentUser.canUpload) {
+                alert('File uploaded successfully!');
+            } else {
+                alert('You do not have permission to upload files.');
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <header class="bg-blue-600 text-white py-4 shadow-md">
+        <div class="container mx-auto text-center">
+            <h1 class="text-3xl font-bold">Virtual Downloads</h1>
+            <p class="text-sm">A central hub for your downloadable content</p>
+        </div>
+    </header>
+
+    <main class="container mx-auto mt-6 p-4">
+        <form id="sign-in-form" class="bg-white p-6 rounded-2xl shadow-lg max-w-md mx-auto" onsubmit="signIn(event)">
+            <h2 class="text-xl font-semibold mb-4">Sign In</h2>
+            <label for="username" class="block text-gray-600 mb-2">Username</label>
+            <input type="text" id="username" class="w-full border-gray-300 rounded-lg p-2 mb-4" required>
+
+            <label for="password" class="block text-gray-600 mb-2">Password</label>
+            <input type="password" id="password" class="w-full border-gray-300 rounded-lg p-2 mb-4" required>
+
+            <label for="email" class="block text-gray-600 mb-2">Email</label>
+            <input type="email" id="email" class="w-full border-gray-300 rounded-lg p-2 mb-4" required>
+
+            <button type="submit" class="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700">Sign In</button>
+        </form>
+
+        <div id="main-content" class="hidden">
+            <section class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+                <div class="bg-white rounded-2xl shadow-lg p-4 hover:shadow-xl transition">
+                    <h2 class="text-xl font-semibold">File 1</h2>
+                    <p class="mt-2 text-gray-600">A brief description of the file or resource available for download.</p>
+                    <a href="your-file-link-1" class="inline-block mt-4 bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700">Download</a>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-lg p-4 hover:shadow-xl transition">
+                    <h2 class="text-xl font-semibold">File 2</h2>
+                    <p class="mt-2 text-gray-600">Another description for this downloadable resource.</p>
+                    <a href="your-file-link-2" class="inline-block mt-4 bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700">Download</a>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-lg p-4 hover:shadow-xl transition">
+                    <h2 class="text-xl font-semibold">File 3</h2>
+                    <p class="mt-2 text-gray-600">A brief description for this downloadable item.</p>
+                    <a href="your-file-link-3" class="inline-block mt-4 bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700">Download</a>
+                </div>
+            </section>
+
+            <section id="upload-section" class="hidden mt-6">
+                <form class="bg-white p-6 rounded-2xl shadow-lg max-w-md mx-auto" onsubmit="uploadFile(event)">
+                    <h2 class="text-xl font-semibold mb-4">Upload File</h2>
+                    <label for="file" class="block text-gray-600 mb-2">Select File</label>
+                    <input type="file" id="file" class="w-full border-gray-300 rounded-lg p-2 mb-4" required>
+                    <button type="submit" class="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700">Upload</button>
+                </form>
+            </section>
+        </div>
+    </main>
+
+    <footer class="bg-gray-800 text-white py-4 mt-8">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2025 Z3R0265 LLC. Hosted on <a href="https://pages.github.com/" class="text-blue-400 hover:underline">GitHub Pages</a>.</p>
+        </div>
+    </footer>
+</body>
+</html>
